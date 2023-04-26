@@ -1,0 +1,28 @@
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+public class GameInteractionService {
+    private final GameInteractionRepository repository;
+
+    public GameInteractionService(GameInteractionRepository repository) {
+        this.repository = repository;
+    }
+
+    public void handleJsonResponse(String jsonString) {
+        JSONObject json = new JSONObject(jsonString);
+        JSONArray payloadArray = json.getJSONArray("payload");
+        for (int i = 0; i < payloadArray.length(); i++) {
+            JSONObject payloadJson = payloadArray.getJSONObject(i);
+            GameInteraction interaction = new GameInteraction();
+            interaction.setPlatform(payloadJson.getString("platform"));
+            interaction.setRegion(payloadJson.getString("region"));
+            interaction.setSourcePlayerId(payloadJson.getString("source_player_id"));
+            interaction.setSourceCharacter(payloadJson.getString("source_character"));
+            interaction.setTargetPlayerId(payloadJson.getString("target_player_id"));
+            interaction.setTargetCharacter(payloadJson.getString("target_character"));
+            interaction.setMethod(payloadJson.getString("method"));
+            interaction.setDamage(payloadJson.getInt("damage"));
+            repository.save(interaction);
+        }
+    }
+}

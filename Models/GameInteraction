@@ -1,0 +1,12 @@
+public class GameInteraction {
+    private String platform;
+    private String region;
+    private String sourcePlayerId;
+    private String sourceCharacter;
+    private String targetPlayerId;
+    private String targetCharacter;
+    private String method;
+    private int damage;
+
+    // Constructors, getters, and setters
+}

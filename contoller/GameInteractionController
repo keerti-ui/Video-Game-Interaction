@@ -1,0 +1,20 @@
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class GameInteractionController {
+    private final GameInteractionService service;
+
+    public GameInteractionController(GameInteractionService service) {
+        this.service = service;
+    }
+
+    @PostMapping("/game-interaction")
+    public ResponseEntity<String> handleGameInteraction(@RequestBody String jsonString) {
+        service.handleJsonResponse(jsonString);
+        return new ResponseEntity<>("Game interaction saved successfully", HttpStatus.OK);
+    }
+}
